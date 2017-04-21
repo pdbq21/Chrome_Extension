@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#icon{
+    /*test styles*/
+    height: 20em;
+    width: 20em;
+    background-color: #eeeeee;
+}
