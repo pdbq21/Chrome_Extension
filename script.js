@@ -218,6 +218,8 @@ let list = root.querySelectorAll('.cart_level_cost_for_seller>.order');
 
 
 let templates = '';
+let firstPage = '';// <div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 758px; display: flex;"></div></div>
+let firstContent = '';// <div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 758px; display: flex;"></div></div>
 list.forEach((item) => {
   if (item.querySelector('input').checked) {
 
@@ -237,6 +239,7 @@ list.forEach((item) => {
     // [] => all products on one address
     const itemsList = item.querySelectorAll('.items .item');
     let variationsAndTypes = '';
+    let variationsAndTypesForFirst = '';
     if (!!itemsList.length) {
       itemsList.forEach((item, index) => {
 
@@ -244,6 +247,8 @@ list.forEach((item) => {
 
         const variation = variationTemp[0].substring(1);
         variationsAndTypes += `${(index !== 0)? '<span>   |   </span>': ''}<span>${variation}:</span>`;
+
+        let tempForFirstType = '';
         const typesList = item.querySelectorAll('.item-details .item-selected-options>li');
         typesList.forEach((type, index) => {
 
@@ -251,17 +256,23 @@ list.forEach((item) => {
           const string = typeTemp[0].substring(1, 4);
 
           variationsAndTypes += `${(index !== 0)? ',': ''}<span>${string}</span>`;
+            tempForFirstType += `${(index !== 0)? ',': ''}<span>${string}</span>`;
         });
+
+          variationsAndTypesForFirst += `<div>${variation}:${tempForFirstType}</div>`;
 
       });
     }
 
 
-      templates += `<div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 770px; display: flex;"><div style="width: 64%; height: 100%; position: relative;"><div style="width: 100%; height: 388px;">
+      templates += `<div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 758px; display: flex; ;"><div style="width: 64%; height: 100%; position: relative;"><div style="width: 100%; height: 388px;">
 <div id="types" style="writing-mode: vertical-lr; position: absolute; left: -15px; font-size: 11px; bottom: 0px;">${variationsAndTypes}</div>
 </div><div style="position: relative; width: 100%; height: 370px;"><div style="right: -15px; border-top: 1px solid; border-right: 1px solid; width: 173px; font-size: 12px; font-weight: 600; top: 34px; height: 335px; position: absolute; writing-mode: vertical-rl;"><div style="padding-top: 2px; background: rgb(158, 158, 158); border-left: 1px solid;">To:</div><div id="temp" style="padding-top: 3px; margin-right: 23px;">${elementTemp}${elementCountry}</div></div></div></div><div style="width: 36%; height: 100%;"><div style="font-size: 12px; border-bottom: 1px solid; border-left: 1px solid; font-weight: 600; width: 100%; height: 185px; writing-mode: vertical-rl;"><div style="padding-top: 3px; background: rgb(158, 158, 158); border-right: 1px solid;">From:</div><div style="padding-top: 3px; padding-right: 8px; border-right: 1px solid;"><div>Andriy Proforuk</div><div>Sobornosti 31, 34</div><div>Lutsk Volyn 43000</div><div>Ukraine</div></div></div><div style="height: 573px; width: 100%; writing-mode: vertical-rl;"><div style="font-size: 34px; font-weight: 600; padding: 44px 14px 0px 0px;"><span>IMPRIMES</span><span style="padding-top: 24px;">PAR AVION</span></div><div style="padding-top: 92px; font-size: 12px; font-weight: 600;">БАНДЕРОЛЬ</div></div></div></div></div>`;
+
+      firstContent += `<div style="margin-bottom: 5px;">${variationsAndTypesForFirst}</div>`;
 
   }
 });
 
-document.body.innerHTML = templates;
+firstPage = `<div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 758px; display: flex; flex-direction: column;">${firstContent}</div></div>`
+document.body.innerHTML = `${firstPage}${templates}`;
