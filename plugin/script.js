@@ -1,4 +1,4 @@
-const countries = {
+let countries = {
   'Afghanistan': 'Афганістан',
   'Albania': 'Албанія',
   'Algeria': 'Алжир',
@@ -218,10 +218,13 @@ let list = root.querySelectorAll('.cart_level_cost_for_seller>.order');
 
 
 let templates = '';
+let notesLink = '';
 let firstPage = '';// <div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 758px; display: flex;"></div></div>
 let firstContent = '';// <div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 758px; display: flex;"></div></div>
 list.forEach((item) => {
   if (item.querySelector('input').checked) {
+//user-notes
+    notesLink += `${item.querySelector('.user-notes a').href}\n`;
 
     let address = item.querySelector('.ship-to-address address');
 
@@ -272,6 +275,11 @@ list.forEach((item) => {
       firstContent += `<div style="margin-bottom: 5px;">${variationsAndTypesForFirst}</div>`;
 
   }
+});
+
+chrome.storage.local.set({'notes': notesLink.split('\n')}, function() {
+  // Notify that we saved.
+  // message('Settings saved');
 });
 
 firstPage = `<div style="text-align: left; width: 100vw; height: 100vh; display: flex;"><div style="border: 1px solid; margin-left: 300px; width: 250px; height: 758px; display: flex; flex-direction: column;">${firstContent}</div></div>`
