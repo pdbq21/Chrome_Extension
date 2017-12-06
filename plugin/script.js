@@ -193,7 +193,7 @@ const countries = {
   'Uganda': 'Уґанда',
   'Ukraine': 'Україна',
   'United Arab Emirates': "Об'єднані Арабські Емірати",
-  'United Kingdom': "Об'єднане Королівство",
+  'United Kingdom': "Великобританія",
   'United States of America': 'Сполучені Штати Америки',
   'United States': 'США',
   'Uruguay': 'Уругвай',
